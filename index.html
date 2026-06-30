@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parapente Pantanal — Allan | Campo Grande MS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --preto:    #0A0D0F;
+      --pantanal: #1C2B2E;
+      --lima:     #C8F04A;
+      --texto:    #E8E0D0;
+      --verde:    #6B8F71;
+      --cinza:    #3A4A4D;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--preto);
+      color: var(--texto);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2.5rem;
+      background: linear-gradient(to bottom, rgba(10,13,15,0.9), transparent);
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      color: var(--lima);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--texto);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--lima); }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      background: var(--pantanal);
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(10,13,15,0.3) 0%, rgba(10,13,15,0.15) 40%, rgba(10,13,15,0.75) 100%),
+        url('assets/foto-voos.jpg') center/cover no-repeat;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 2.5rem 0 2.5rem;
+      width: 100%;
+    }
+    .hero-label {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--lima);
+      margin-bottom: 0.75rem;
+      border-left: 3px solid var(--lima);
+      padding-left: 0.75rem;
+    }
+    .hero-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 14vw, 14rem);
+      line-height: 0.88;
+      color: var(--texto);
+      letter-spacing: 0.02em;
+      margin-bottom: -0.08em;
+    }
+    .hero-headline .destaque { color: var(--lima); }
+    .hero-sub {
+      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+      font-weight: 300;
+      opacity: 0.8;
+      max-width: 480px;
+      line-height: 1.6;
+      margin: 1.5rem 0 2rem;
+    }
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--lima);
+      color: var(--preto);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border-radius: 2px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-bottom: 3rem;
+    }
+    .btn-whatsapp:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(200,240,74,0.3);
+    }
+    .btn-whatsapp svg { width: 20px; height: 20px; }
+
+    /* ── CREDENCIAIS ── */
+    #credenciais {
+      background: var(--lima);
+      padding: 2rem 2.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .cred-item {
+      text-align: center;
+      color: var(--preto);
+    }
+    .cred-titulo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+    .cred-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-top: 0.2rem;
+    }
+
+    /* ── SOBRE ── */
+    #sobre {
+      padding: 7rem 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .sobre-foto {
+      position: relative;
+    }
+    .sobre-foto img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 4px;
+      filter: grayscale(20%);
+    }
+    .sobre-foto::before {
+      content: '';
+      position: absolute;
+      inset: -12px -12px 12px 12px;
+      border: 2px solid var(--lima);
+      border-radius: 4px;
+      z-index: -1;
+    }
+    .sobre-texto .secao-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--lima);
+      border-left: 3px solid var(--lima);
+      padding-left: 0.75rem;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .sobre-texto h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.03em;
+    }
+    .sobre-texto p {
+      font-size: 1rem;
+      line-height: 1.75;
+      opacity: 0.8;
+      margin-bottom: 1rem;
+    }
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 2rem;
+    }
+    .badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lima);
+      border: 1px solid var(--lima);
+      padding: 0.4rem 0.9rem;
+      border-radius: 2px;
+      opacity: 0.85;
+    }
+
+    /* ── SERVIÇOS ── */
+    #servicos {
+      background: var(--pantanal);
+      padding: 7rem 2.5rem;
+    }
+    #servicos .secao-cabecalho {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    #servicos .secao-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--lima);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+    #servicos h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      letter-spacing: 0.03em;
+    }
+    .servicos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .servico-card {
+      background: var(--preto);
+      border: 1px solid var(--cinza);
+      border-radius: 4px;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .servico-card:hover {
+      border-color: var(--lima);
+      transform: translateY(-4px);
+    }
+    .servico-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--lima);
+    }
+    .servico-icone {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .servico-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.75rem;
+    }
+    .servico-card p {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      opacity: 0.7;
+      margin-bottom: 1.5rem;
+    }
+    .servico-preco {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      color: var(--lima);
+      letter-spacing: 0.04em;
+    }
+    .servico-preco span {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      opacity: 0.6;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── GALERIA ── */
+    #galeria {
+      padding: 7rem 2.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    #galeria .secao-cabecalho {
+      margin-bottom: 3rem;
+    }
+    #galeria .secao-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--lima);
+      border-left: 3px solid var(--lima);
+      padding-left: 0.75rem;
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+    #galeria h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      letter-spacing: 0.03em;
+    }
+    .galeria-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 260px 260px;
+      gap: 8px;
+    }
+    .galeria-grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 2px;
+      filter: grayscale(15%) contrast(1.05);
+      transition: filter 0.3s, transform 0.3s;
+    }
+    .galeria-grid img:hover {
+      filter: grayscale(0%) contrast(1.1);
+      transform: scale(1.01);
+    }
+    .galeria-grid .destaque-foto {
+      grid-row: 1 / 3;
+    }
+
+    /* ── CTA FINAL ── */
+    #cta {
+      background: var(--pantanal);
+      padding: 8rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #cta::before {
+      content: 'VOAR';
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30vw;
+      color: rgba(200,240,74,0.04);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      letter-spacing: 0.04em;
+    }
+    #cta h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.03em;
+      position: relative;
+    }
+    #cta p {
+      font-size: 1.05rem;
+      opacity: 0.7;
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+      position: relative;
+    }
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--lima);
+      color: var(--preto);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1.2rem 2.5rem;
+      border-radius: 2px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .btn-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(200,240,74,0.35);
+    }
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--texto);
+      text-decoration: none;
+      font-size: 0.85rem;
+      opacity: 0.6;
+      margin-top: 1.5rem;
+      letter-spacing: 0.08em;
+      transition: opacity 0.2s;
+    }
+    .social-link:hover { opacity: 1; color: var(--lima); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--preto);
+      border-top: 1px solid var(--cinza);
+      padding: 2rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.08em;
+      color: var(--lima);
+    }
+    footer p {
+      font-size: 0.75rem;
+      opacity: 0.4;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── RESPONSIVO ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.2rem; }
+      .nav-links { display: none; }
+      .hero-content { padding: 0 1.2rem; }
+      .hero-headline { font-size: clamp(4rem, 18vw, 7rem); }
+      #sobre { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 1.2rem; }
+      .sobre-foto { max-width: 340px; margin: 0 auto; }
+      .servicos-grid { grid-template-columns: 1fr; }
+      #servicos { padding: 4rem 1.2rem; }
+      #galeria { padding: 4rem 1.2rem; }
+      .galeria-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 180px 180px 180px;
+      }
+      .galeria-grid .destaque-foto { grid-row: auto; }
+      #cta { padding: 5rem 1.2rem; }
+      footer { flex-direction: column; text-align: center; padding: 1.5rem 1.2rem; }
+      #credenciais { padding: 1.5rem 1.2rem; gap: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">Parapente Pantanal</a>
+    <ul class="nav-links">
+      <li><a href="#sobre">Instrutor</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#galeria">Galeria</a></li>
+      <li><a href="#campeonatos">Campeonatos</a></li>
+      <li><a href="#cta">Contato</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <span class="hero-label">Campo Grande — MS</span>
+      <h1 class="hero-headline">
+        VOE SOBRE<br>
+        O <span class="destaque">PAN</span><br>
+        <span class="destaque">TANAL</span>
+      </h1>
+      <p class="hero-sub">
+        Voos duplos e formação de pilotos com o instrutor mais experiente do Centro-Oeste. Nível 4 CBVL. Adrenalina, liberdade e segurança em cada voo.
+      </p>
+      <a href="https://wa.me/5567992413901?text=Ol%C3%A1%20Allan%2C%20quero%20saber%20mais%20sobre%20o%20Parapente%20Pantanal!"
+         class="btn-whatsapp" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.553 4.118 1.522 5.854L.057 23.882a.5.5 0 00.606.625l6.204-1.63A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.813 9.813 0 01-5.001-1.373l-.358-.214-3.718.977.995-3.635-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/>
+        </svg>
+        Agendar agora
+      </a>
+    </div>
+  </section>
+
+  <!-- CREDENCIAIS -->
+  <div id="credenciais">
+    <div class="cred-item">
+      <div class="cred-titulo">Nível 4</div>
+      <div class="cred-label">Instrutor CBVL</div>
+    </div>
+    <div class="cred-item">
+      <div class="cred-titulo">Voo Duplo</div>
+      <div class="cred-label">Habilitado</div>
+    </div>
+    <div class="cred-item">
+      <div class="cred-titulo">Diretor</div>
+      <div class="cred-label">Técnico Regional</div>
+    </div>
+    <div class="cred-item">
+      <div class="cred-titulo">Presidente</div>
+      <div class="cred-label">do Clube</div>
+    </div>
+  </div>
+
+  <!-- SOBRE -->
+  <section id="sobre">
+    <div class="sobre-foto">
+      <img src="https://images.unsplash.com/photo-1578593140079-9516c5f77ec4?w=600&q=80" alt="Allan — Instrutor Parapente Pantanal" />
+    </div>
+    <div class="sobre-texto">
+      <span class="secao-label">O Instrutor</span>
+      <h2>ALLAN,<br>INSTRUTOR<br>NÍVEL 4</h2>
+      <p>
+        Com a mais alta certificação da Confederação Brasileira de Voo Livre, Allan é referência no voo livre no Centro-Oeste. Diretor Técnico Regional e Presidente do Clube, ele une conhecimento técnico e paixão pelo voo livre.
+      </p>
+      <p>
+        Cada voo é conduzido com rigor de segurança, conhecimento do território e amor genuíno por voar. Alunos que passam pela formação com Allan saem prontos para voar com autonomia e responsabilidade.
+      </p>
+      <div class="badges">
+        <span class="badge">CBVL Nível 4</span>
+        <span class="badge">Voo Duplo</span>
+        <span class="badge">Diretor Técnico Regional</span>
+        <span class="badge">Presidente do Clube</span>
+        <span class="badge">Campo Grande MS</span>
+        <span class="badge">Bonito do Dionísio</span>
+        <span class="badge">Kelly Enrochedinho</span>
+        <span class="badge">Morro do Ernesto — Sidrolândia</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section id="servicos">
+    <div class="secao-cabecalho">
+      <span class="secao-label">O que oferecemos</span>
+      <h2>SERVIÇOS</h2>
+    </div>
+    <div class="servicos-grid">
+      <div class="servico-card">
+        <div class="servico-icone">🪂</div>
+        <h3>Voo Duplo</h3>
+        <p>
+          Sem experiência necessária. Allan controla tudo enquanto você vive a sensação real de voar — adrenalina, vento, liberdade e total segurança.
+        </p>
+        <div class="servico-preco">
+          R$ 350 <span>/ por voo</span>
+        </div>
+      </div>
+      <div class="servico-card">
+        <div class="servico-icone">🎓</div>
+        <h3>Curso de Parapente</h3>
+        <p>
+          Formação completa para iniciantes, no seu ritmo. Mensalidade fixa sem prazo determinado — você avança conforme evolui, sem pressão.
+        </p>
+        <div class="servico-preco">
+          R$ 500 <span>/ mês</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section id="galeria">
+    <div class="secao-cabecalho">
+      <span class="secao-label">Voos e campeonatos</span>
+      <h2>GALERIA</h2>
+    </div>
+    <div class="galeria-grid">
+      <img class="destaque-foto"
+           src="assets/foto-voos.jpg"
+           alt="Voos de parapente no Centro-Oeste" />
+      <img src="assets/foto-decolagem.jpg"
+           alt="Decolagem — Parapente Pantanal" />
+      <img src="https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=600&q=80"
+           alt="Vista aérea Pantanal" />
+      <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&q=80"
+           alt="Natureza do Pantanal" />
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80"
+           alt="Voo livre" />
+    </div>
+  </section>
+
+
+  <!-- CAMPEONATOS -->
+  <section id="campeonatos" style="padding: 7rem 2.5rem; max-width: 1200px; margin: 0 auto;">
+    <div style="margin-bottom: 3rem;">
+      <span style="font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #C8F04A; border-left: 3px solid #C8F04A; padding-left: 0.75rem; display: block; margin-bottom: 0.75rem;">Allan pelo Brasil</span>
+      <h2 style="font-family: Bebas Neue, sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: 0.03em;">CAMPEONATOS</h2>
+      <p style="font-size: 1rem; opacity: 0.65; margin-top: 0.75rem; max-width: 560px; line-height: 1.7;">
+        Allan representa o Centro-Oeste em competições por todo o Brasil. Uma trajetória de dedicação, técnica e amor pelo voo livre.
+      </p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+      <div style="background: #1C2B2E; border: 1px solid #3A4A4D; border-radius: 4px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; color: #3A4A4D; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; font-family: Inter, sans-serif;">
+        Foto do campeonato
+      </div>
+      <div style="background: #1C2B2E; border: 1px solid #3A4A4D; border-radius: 4px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; color: #3A4A4D; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; font-family: Inter, sans-serif;">
+        Foto do campeonato
+      </div>
+      <div style="background: #1C2B2E; border: 1px solid #3A4A4D; border-radius: 4px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; color: #3A4A4D; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; font-family: Inter, sans-serif;">
+        Foto do campeonato
+      </div>
+      <div style="background: #1C2B2E; border: 1px solid #3A4A4D; border-radius: 4px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; color: #3A4A4D; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; font-family: Inter, sans-serif;">
+        Foto do campeonato
+      </div>
+      <div style="background: #1C2B2E; border: 1px solid #3A4A4D; border-radius: 4px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; color: #3A4A4D; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; font-family: Inter, sans-serif;">
+        Foto do campeonato
+      </div>
+      <div style="background: #1C2B2E; border: 1px solid #3A4A4D; border-radius: 4px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; color: #3A4A4D; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; font-family: Inter, sans-serif;">
+        Foto do campeonato
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section id="cta">
+    <h2>PRONTO PARA<br>DECOLAR?</h2>
+    <p>Fale com Allan agora mesmo e marque seu voo ou comece sua formação. O céu do Centro-Oeste te espera. Decole com quem conhece cada corrente de ar.</p>
+    <a href="https://wa.me/5567992413901?text=Ol%C3%A1%20Allan%2C%20quero%20saber%20mais%20sobre%20o%20Parapente%20Pantanal!"
+       class="btn-cta" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.553 4.118 1.522 5.854L.057 23.882a.5.5 0 00.606.625l6.204-1.63A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.813 9.813 0 01-5.001-1.373l-.358-.214-3.718.977.995-3.635-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/>
+      </svg>
+      Falar com Allan no WhatsApp
+    </a>
+    <br>
+    <a href="https://instagram.com/parapentepantanal" class="social-link" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+      </svg>
+      @parapentepantanal
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">Parapente Pantanal</span>
+    <p>Campo Grande — MS &nbsp;·&nbsp; (67) 99241-3901 &nbsp;·&nbsp; @parapentepantanal</p>
+    <p>© 2026 Parapente Pantanal. Todos os direitos reservados.</p>
+  </footer>
+
+</body>
+</html>
